@@ -88,7 +88,7 @@ class CsvCtrl:
             data (list): CSVに書き込むデータリスト
             mode (str): 'a'の場合、既存のデータに追記。'w'の場合、上書き。
         """
-        if not self.__check_file(file_path) and mode:
+        if not self.__check_file(file_path):
             print(f"Warning: ファイル '{file_path}' が存在しないため、新しく作成します。")
 
         with open(file_path, mode, encoding='utf-8', newline='') as f:
