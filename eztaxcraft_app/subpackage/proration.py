@@ -23,16 +23,3 @@ class Proration:
         required_expenses = cost * ratio
 
         return int(required_expenses)
-
-
-if __name__ == '__main__':
-    # インスタンスの生成
-    proration = Proration()
-
-    source_str, target_str, cost_str = input().split()
-    source_val = float(source_str)
-    target_val = float(target_str)
-    cost_val = int(cost_str)
-
-    result_val = proration.calc_expenses(source_val, target_val, cost_val)
-    print(f'経費：{result_val:,.0f}円')
