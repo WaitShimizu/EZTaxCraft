@@ -6,7 +6,7 @@ import csv
 class CsvCtrl:
     """CSV制御クラス
     """
-    def _check_file(self, file_path: str):
+    def __check_file(self, file_path: str):
         """ファイル存在とアクセス権チェック
 
         Args:
@@ -43,7 +43,7 @@ class CsvCtrl:
             file_path (str): 読み込むCSVファイルパス
         """
         # ファイル存在チェック
-        if not self._check_file(file_path):
+        if not self.__check_file(file_path):
             return None
         
         # 結果格納リスト
@@ -93,7 +93,7 @@ class CsvCtrl:
         else:
             mode = 'w'
 
-        if not self._check_file(file_path) and append:
+        if not self.__check_file(file_path) and append:
             print(f"Warning: ファイル '{file_path}' が存在しないため、新しく作成します。")
 
         with open(file_path, mode, encoding='utf-8', newline='') as f:
@@ -108,7 +108,7 @@ if __name__ == '__main__':
 
     # サンプルデータ
     sample_data = [
-       ['neko','10','guamu']
+       ['inu','10','guamu']
     ]
 
     # 書き込み
