@@ -80,20 +80,20 @@ class CsvCtrl:
         ### CSVファイルの中身をすべて上書き
         self.__write(file_path, data)
 
-    def __write(self, file_path: str, data: list, append=True)  -> None:
+    def __write(self, file_path: str, data: list, mode=True)  -> None:
         """書き込み [内部処理用]
 
         Args:
             file_path (str): 書き込むCSVファイルパス
             data (list): CSVに書き込むデータリスト
-            append (bool): Trueの場合、既存のデータに追記。Falseの場合、上書き。
+            mode (bool): Trueの場合、既存のデータに追記。Falseの場合、上書き。
         """
-        if append:
+        if mode:
             mode = 'a'
         else:
             mode = 'w'
 
-        if not self.__check_file(file_path) and append:
+        if not self.__check_file(file_path) and mode:
             print(f"Warning: ファイル '{file_path}' が存在しないため、新しく作成します。")
 
         with open(file_path, mode, encoding='utf-8', newline='') as f:
