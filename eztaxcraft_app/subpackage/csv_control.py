@@ -6,7 +6,7 @@ import csv
 class CsvCtrl:
     """CSV制御クラス
     """
-    def __check_file(self, file_path: str):
+    def __check_file(self, file_path: str) -> bool:
         """ファイル存在とアクセス権チェック
 
         Args:
@@ -36,18 +36,18 @@ class CsvCtrl:
             return False
         
 
-    def read_data(self, file_path: str):
+    def read_data(self, file_path: str) -> list:
         """読み込み
 
         Args:
             file_path (str): 読み込むCSVファイルパス
         """
+        # 結果格納リスト
+        result_rows: list = []
+
         # ファイル存在チェック
         if not self.__check_file(file_path):
-            return None
-        
-        # 結果格納リスト
-        result_rows = []
+            return result_rows
 
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
@@ -56,11 +56,11 @@ class CsvCtrl:
                     result_rows.append(row)
         except csv.Error as e:
             print(f"Error: ファイル '{file_path}' の読み込み中にCSVエラーが発生しました。詳細: {e}")
-            return None
+            return result_rows
 
         return result_rows
 
-    def write_data(self, file_path: str, data: list):
+    def write_data(self, file_path: str, data: list) -> None:
         """書き込み(上書き)
 
         Args:
@@ -70,7 +70,7 @@ class CsvCtrl:
         ### CSVファイルの中身をすべて上書き
         self.__write(file_path, data, False)
 
-    def add_data(self, file_path: str, data: list):
+    def add_data(self, file_path: str, data: list) -> None:
         """書き込み(末尾に追加)
 
         Args:
@@ -80,7 +80,7 @@ class CsvCtrl:
         ### CSVファイルの中身をすべて上書き
         self.__write(file_path, data)
 
-    def __write(self, file_path: str, data: list, append=True):
+    def __write(self, file_path: str, data: list, append=True)  -> None:
         """書き込み [内部処理用]
 
         Args:
