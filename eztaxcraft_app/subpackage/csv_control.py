@@ -100,19 +100,3 @@ class CsvCtrl:
             writer = csv.writer(f)
             for row in data:
                 writer.writerow(row)
-
-
-if __name__ == '__main__':
-    # インスタンスの生成
-    csv_ctrl = CsvCtrl()
-
-    # サンプルデータ
-    sample_data = [
-       ['inu','10','guamu']
-    ]
-
-    # 書き込み
-    csv_ctrl.add_data('/home/ubuntu/project/csv_study/venv/sample2.csv', sample_data)
-    # 読み込み
-    result = csv_ctrl.read_data('/home/ubuntu/project/csv_study/venv/sample2.csv')
-    print(result)
