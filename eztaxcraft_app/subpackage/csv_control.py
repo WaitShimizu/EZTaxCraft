@@ -86,7 +86,7 @@ class CsvCtrl:
         Args:
             file_path (str): 書き込むCSVファイルパス
             data (list): CSVに書き込むデータリスト
-            mode (str): 'w'の場合、既存のデータに追記。'a'の場合、上書き。
+            mode (str): 'a'の場合、既存のデータに追記。'w'の場合、上書き。
         """
         if not self.__check_file(file_path) and mode:
             print(f"Warning: ファイル '{file_path}' が存在しないため、新しく作成します。")
