@@ -1,6 +1,8 @@
 # #!/usr/bin/env python3
 # # -*- cording: utf-8 -*-
 
+import math
+
 class Proration:
     """按分クラス
     """
@@ -17,11 +19,24 @@ class Proration:
         """
         # 按分用比率計算
         ratio = target_value / source_value
-        # 比率の表示
-        print(f'按分用比率: {ratio:.2%}')
+        # 比率の表示(切り上げ)
+        round_up = math.ceil(ratio*100)
+        print(f'按分元データ：[{ratio:.2%}],按分用比率:[{round_up}%]')
         # 必要経費計算
-        required_expenses = _per_month * ratio
+        required_expenses = math.ceil(_per_month * ratio)
+        # 変数のタイプチェック用
+        print(type(required_expenses))
 
-        return int(required_expenses)
+        return required_expenses
     
+if __name__ == '__main__':
+    # インスタンスの生成
+    proration = Proration()
 
+    source_str, target_str, cost_str = input().split()
+    source_val = float(source_str)
+    target_val = float(target_str)
+    cost_val = int(cost_str)
+
+    result_val = proration.calc_expenses(source_val, target_val, cost_val)
+    print(f'経費：{result_val:,.0f}円')
