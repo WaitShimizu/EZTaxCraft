@@ -36,7 +36,7 @@ class CsvCtrl:
             return False
         
 
-    def read(self, file_path: str):
+    def read_data(self, file_path: str):
         """読み込み
 
         Args:
@@ -114,5 +114,5 @@ if __name__ == '__main__':
     # 書き込み
     csv_ctrl.add_data('/home/ubuntu/project/csv_study/venv/sample2.csv', sample_data)
     # 読み込み
-    result = csv_ctrl.read('/home/ubuntu/project/csv_study/venv/sample2.csv')
+    result = csv_ctrl.read_data('/home/ubuntu/project/csv_study/venv/sample2.csv')
     print(result)
