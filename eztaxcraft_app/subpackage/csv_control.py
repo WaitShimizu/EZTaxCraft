@@ -68,7 +68,7 @@ class CsvCtrl:
             data (list): CSVに書き込むデータリスト
         """
         ### CSVファイルの中身をすべて上書き
-        self.__write(file_path, data, False)
+        self.__write(file_path, data, 'w')
 
     def add_data(self, file_path: str, data: list) -> None:
         """書き込み(末尾に追加)
@@ -80,19 +80,14 @@ class CsvCtrl:
         ### CSVファイルの中身をすべて上書き
         self.__write(file_path, data)
 
-    def __write(self, file_path: str, data: list, mode=True)  -> None:
+    def __write(self, file_path: str, data: list, mode: str='a')  -> None:
         """書き込み [内部処理用]
 
         Args:
             file_path (str): 書き込むCSVファイルパス
             data (list): CSVに書き込むデータリスト
-            mode (bool): Trueの場合、既存のデータに追記。Falseの場合、上書き。
+            mode (str): 'w'の場合、既存のデータに追記。'a'の場合、上書き。
         """
-        if mode:
-            mode = 'a'
-        else:
-            mode = 'w'
-
         if not self.__check_file(file_path) and mode:
             print(f"Warning: ファイル '{file_path}' が存在しないため、新しく作成します。")
 
