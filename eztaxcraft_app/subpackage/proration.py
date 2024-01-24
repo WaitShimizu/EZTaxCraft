@@ -22,9 +22,6 @@ class Proration:
         print(f'按分詳細比率：[{proration_detail_rate:.9%}],按分比率:[{proration_rate}%]')
         # 必要経費計算
         required_expenses = round(cost_per_month * proration_detail_rate, 1)
-        # 変数のタイプチェック用
-        if type(required_expenses) != float:
-            print('')
         return int(required_expenses)
 
     def __get_proration_detail_rate(self, comparison_value: float, comparison_original_value: float) -> float:
