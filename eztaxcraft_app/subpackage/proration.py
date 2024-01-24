@@ -19,7 +19,7 @@ class Proration:
         proration_detail_rate = self.__get_proration_detail_rate(comparison_value, comparison_original_value)
         # 按分比率(整数)
         proration_rate = self.__get_proration_rate(proration_detail_rate)
-        print(f'按分詳細比率：[{proration_detail_rate:.9%}],按分比率:[{proration_rate}%]')
+        print(f'按分詳細比率：[{proration_detail_rate}],按分比率:[{proration_rate}%]')
         # 必要経費計算
         required_expenses = round(cost_per_month * proration_detail_rate, 1)
         return int(required_expenses)
@@ -36,7 +36,6 @@ class Proration:
             float: 按分詳細比率
         """
         result = round(comparison_value / comparison_original_value, 9)
-        print(f'按分詳細比率：[{result}]')
         return result
 
     def __get_proration_rate(self, proration_detail_rate: float) -> int:
@@ -50,5 +49,4 @@ class Proration:
             int: 按分比率
         """
         result = int(round(round(proration_detail_rate,3)*100, 0))
-        print(f'按分比率:[{result}%]')
         return result
