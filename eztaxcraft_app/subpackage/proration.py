@@ -25,7 +25,7 @@ class Proration:
         return int(required_expenses)
 
     def __get_proration_detail_rate(self, comparison_value: float, comparison_original_value: float) -> float:
-        """按分詳細比率を取得する
+        """按分詳細比率を取得する [内部処理用]
             NOTE:小数点以下第9位まで
 
         Args:
