@@ -52,6 +52,6 @@ class Proration:
         Returns:
             int: 按分比率
         """
-        print(f'按分比率:[{result}%]')
         result = int(round(round(proration_detail_rate,3)*100, 0))
+        print(f'按分比率:[{result}%]')
         return result
