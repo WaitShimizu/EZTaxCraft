@@ -4,13 +4,13 @@
 class Proration:
     """按分クラス
     """
-    def calc_expenses(self, comparison_value: float, comparison_original_value: float, _per_month: int) -> int:
+    def calc_expenses(self, comparison_value: float, comparison_original_value: float, cost_per_month: int) -> int:
         """経費計算
 
         Args:
             comparison_value (float): 比較値
             comparison_original_value (float): 比較元値
-            _per_month (int): 1か月の経費
+            cost_per_month (int): 1カ月当たりの費用
 
         Returns:
             int: 必要経費額
@@ -21,7 +21,7 @@ class Proration:
         proration_rate = self.__get_proration_rate(proration_detail_rate)
         print(f'按分詳細比率：[{proration_detail_rate:.9%}],按分比率:[{proration_rate}%]')
         # 必要経費計算
-        required_expenses = round(_per_month * proration_detail_rate, 1)
+        required_expenses = round(cost_per_month * proration_detail_rate, 1)
         # 変数のタイプチェック用
         if type(required_expenses) != float:
             print('')
