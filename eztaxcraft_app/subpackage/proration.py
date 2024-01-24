@@ -40,7 +40,7 @@ class Proration:
         return result
 
     def __get_proration_rate(self, proration_detail_rate: float) -> int:
-        """按分比率を取得する
+        """按分比率を取得する [内部処理用]
             NOTE:整数で算出する
 
         Args:
