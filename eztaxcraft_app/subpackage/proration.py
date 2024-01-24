@@ -1,42 +1,57 @@
 # #!/usr/bin/env python3
 # # -*- cording: utf-8 -*-
 
-import math
-
 class Proration:
     """按分クラス
     """
-    def calc_expenses(self, source_value: float, target_value: float, _per_month: int) -> int:
-        """経費按分計算
+    def calc_expenses(self, comparison_value: float, comparison_original_value: float, _per_month: int) -> int:
+        """経費計算
 
         Args:
-            source_value (float): ベースの値
-            target_value (float): 経費精算したい部分の値
+            comparison_value (float): 比較値
+            comparison_original_value (float): 比較元値
             _per_month (int): 1か月の経費
 
         Returns:
             int: 必要経費額
         """
-        # 按分用比率計算
-        ratio = target_value / source_value
-        # 比率の表示(切り上げ)
-        round_up = math.ceil(ratio*100)
-        print(f'按分元データ：[{ratio:.2%}],按分用比率:[{round_up}%]')
+        # 按分詳細比率(小数点以下第9位まで)
+        proration_detail_rate = self.__get_proration_detail_rate(comparison_value, comparison_original_value)
+        # 按分比率(整数)
+        proration_rate = self.__get_proration_rate(proration_detail_rate)
+        print(f'按分詳細比率：[{proration_detail_rate:.9%}],按分比率:[{proration_rate}%]')
         # 必要経費計算
-        required_expenses = math.ceil(_per_month * ratio)
+        required_expenses = round(_per_month * proration_detail_rate, 1)
         # 変数のタイプチェック用
-        print(type(required_expenses))
+        if type(required_expenses) != float:
+            print('')
+        return int(required_expenses)
 
-        return required_expenses
-    
-if __name__ == '__main__':
-    # インスタンスの生成
-    proration = Proration()
+    def __get_proration_detail_rate(self, comparison_value: float, comparison_original_value: float) -> float:
+        """按分詳細比率を取得する
+            NOTE:小数点以下第9位まで
 
-    source_str, target_str, cost_str = input().split()
-    source_val = float(source_str)
-    target_val = float(target_str)
-    cost_val = int(cost_str)
+        Args:
+            comparison_value (float): 比較値
+            comparison_original_value (float): 比較元値
 
-    result_val = proration.calc_expenses(source_val, target_val, cost_val)
-    print(f'経費：{result_val:,.0f}円')
+        Returns:
+            float: 按分詳細比率
+        """
+        result = round(comparison_value / comparison_original_value, 9)
+        print(f'按分詳細比率：[{result}]')
+        return result
+
+    def __get_proration_rate(self, proration_detail_rate: float) -> int:
+        """按分比率を取得する
+            NOTE:整数で算出する
+
+        Args:
+            proration_detail_rate (float): 按分詳細比率
+
+        Returns:
+            int: 按分比率
+        """
+        print(f'按分比率:[{result}%]')
+        result = int(round(round(proration_detail_rate,3)*100, 0))
+        return result
