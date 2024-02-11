@@ -17,7 +17,7 @@ class CsvCtrl:
         """
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
-                pass
+                print(f)
             return True
         except FileNotFoundError as e:
             print(f"Error: ファイル '{file_path}' が存在しません。詳細: {e}")
@@ -31,10 +31,6 @@ class CsvCtrl:
         except UnicodeDecodeError as e:
             print(f"Error: ファイル '{file_path}' のエンコーディングが無効です。詳細: {e}")
             return False
-        except Exception as e:
-            print(f"Error: ファイル '{file_path}' のチェック中にエラーが発生しました。詳細: {e}")
-            return False
-        
 
     def read_data(self, file_path: str) -> list:
         """読み込み
