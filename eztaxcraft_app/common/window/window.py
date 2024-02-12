@@ -11,7 +11,7 @@ Date: 2024/2/11
 from abc import ABC, abstractmethod
 
 
-class Base(ABC):
+class Window(ABC):
     """画面クラスの基底クラス
         NOTE: 全ての画面クラスが継承すべき基底クラス
     """
