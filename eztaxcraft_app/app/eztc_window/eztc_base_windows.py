@@ -9,6 +9,9 @@ Date: 2024/2/11
 """
 
 import sys
+import tkinter as tk
+from tkinter import ttk
+
 sys.path.append('../../common')
 from window.window import Window
 
@@ -25,6 +28,8 @@ class BaseWindow(Window):
         """
         # 親クラスのコンストラクタ呼び出し
         super().__init__()
+        # ルートTKインスタンス生成
+        self.root = tk.Tk()
 
     def open(self) -> None:
         """画面を開く
