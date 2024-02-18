@@ -8,6 +8,7 @@ Author: Shimizu
 Date: 2024/2/11
 """
 
+import tkinter as tk
 from tkinter import ttk
 
 
@@ -15,13 +16,18 @@ class Button:
     """ボタンクラス
         NOTE: ttkパッケージのButtonモジュールを利用する
     """
-    def __init__(self, name: str, parent_widget, text: str, style: str) -> None:
-        self.name = name
-        # 配置する親ウィジェットオブジェクト
+    def __init__(self, widget_name: str, parent_widget: tk.Tk, text: str, style: str) -> None:
+        """コンストラクタ
+
+        Args:
+            name (str): ウィジェット名
+            parent_widget (tk.Tk): 配置する親ウィジェットオブジェクト
+            text (str): ウィジェットに表示するテキスト
+            style (str): ウィジェットに適用するスタイル名
+        """
+        self.widget_name = widget_name
         self.parent_widget = parent_widget
-        # ボタンウィジェットに設定するテキスト文字列
         self.text = text
-        # 利用するスタイル
         self.style = style
 
     def create_widget(self) -> ttk.Button:
@@ -37,7 +43,3 @@ class Button:
         """ボタンクリック時の処理実行
         """
         print(f'[{self.name}] Clicked.')
-
-if __name__ == '__main__':
-    top_window = TopWindow()
-    top_window.initialize()

@@ -15,29 +15,15 @@ class Style:
     """スタイルクラス
         NOTE: ttkパッケージのButtonモジュールを利用する
     """
-    def __init__(self, name: str, parent_widget, text: str, style: str) -> None:
-        self.name = name
-        # 配置する親ウィジェットオブジェクト
-        self.parent_widget = parent_widget
-        # ボタンウィジェットに設定するテキスト文字列
-        self.text = text
-        # 利用するスタイル
-        self.style = style
+    def __init__(self, widget_name: str) -> None:
+        self.widget_name = widget_name
+        self.style = ttk.Style()
 
-    def create_widget(self) -> ttk.Button:
-        """ボタンウィジェット生成
+    def set_style(self, style_name: str, font: tuple) -> None:
+        """スタイルを設定する
 
-        Returns:
-            ttk.Button: 生成されたボタンウィジェット
+        Args:
+            style_name (str): スタイル名
+            font (tuple): 設定するフォント情報
         """
-        return ttk.Button(self.parent_widget, text=self.text,
-                          style= self.style, command=self.clicked)
-
-    def clicked(self) -> None:
-        """ボタンクリック時の処理実行
-        """
-        print(f'[{self.name}] Clicked.')
-
-if __name__ == '__main__':
-    top_window = TopWindow()
-    top_window.initialize()
+        self.style.configure(style_name, font=font)
