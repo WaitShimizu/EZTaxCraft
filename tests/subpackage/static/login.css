@@ -1,0 +1,104 @@
+* {
+    box-sizing: border-box;
+    }
+    
+    *:focus {
+      outline: none;
+    }
+    body {
+    font-family: Arial;
+    /* 画面の色設定 */
+    background-color: #FFF;
+    /* 余白設定 */
+    padding: 50px;
+    }
+    .login {
+    /* 小枠の高さ設定 */
+    margin: 150px auto;
+    /* 小枠の大きさ設定 */
+    width: 500px;
+    }
+    .login-screen {
+    /* 小枠の色設定 */
+    background-color: #b4c7e7;
+    padding: 20px;
+    border-radius: 0px
+    }
+    
+    .app-title {
+    text-align: center;
+    color: #ffffff;
+    }
+    .email-left {
+      label {
+        margin: 1.5px 0 1.5px -210px;
+        display: inline-block;
+        color: #ffffff;
+        font-size: 1.1em;
+        margin-top: 0.6em;
+        font-weight: bold;
+      }
+    }
+    .password-left{
+      label {
+        margin: 1.5px 0 1.5px -210px;
+        display: inline-block;
+        color: #ffffff;
+        font-size: 1.1em;
+        margin-top: 0.6em;
+        font-weight: bold;
+      }
+    }
+    .login-form {
+    text-align: center;
+    }
+    .control-group {
+    margin-bottom: 10px;
+    }
+    
+    input {
+    text-align: left;
+    background-color: #ECF0F1;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 200;
+    padding: 10px 0;
+    width: 300px;
+    transition: border .0s;
+    }
+    
+    input:focus {
+    border: 2px solid #3498DB;
+    box-shadow: none;
+    }
+    
+    .btn {
+      border: 2px solid transparent;
+      background: #5b9bd5;
+      color: #ffffff;
+      font-size: 16px;
+      line-height: 25px;
+      padding: 10px 0;
+      text-decoration: none;
+      text-shadow: none;
+      border-radius: 3px;
+      box-shadow: none;
+      transition: 0.25s;
+      display: block;
+      width: 250px;
+      margin: 0 auto;
+      font-weight: bold;
+    }
+    
+    .btn:hover {
+      background-color: #2980B9;
+    }
+    
+    .login-link {
+      font-size: 12px;
+      color: #ffffff;
+      display: block;
+      margin-top: 30px;
+      margin-bottom: 30px;
+    }
