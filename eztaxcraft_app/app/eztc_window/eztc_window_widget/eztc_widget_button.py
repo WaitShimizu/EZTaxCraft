@@ -16,30 +16,44 @@ class Button:
     """ボタンクラス
         NOTE: ttkパッケージのButtonモジュールを利用する
     """
-    def __init__(self, widget_name: str, parent_widget: tk.Tk, text: str, style: str) -> None:
+    def __init__(self, parent_widget: tk.Tk, **kwargs) -> None:
         """コンストラクタ
+            NOTE:tkinterのButtonクラスをラップする
 
         Args:
-            name (str): ウィジェット名
             parent_widget (tk.Tk): 配置する親ウィジェットオブジェクト
-            text (str): ウィジェットに表示するテキスト
-            style (str): ウィジェットに適用するスタイル名
+            **kwargs (dict): キーワード引数 (※NOTE: 以下を設定可能)
+                            command: _ButtonCommand = ...,
+                            compound: _TtkCompound = ...,
+                            cursor: _Cursor = ...,
+                            default: Literal['normal', 'active', 'disabled'] = ...,
+                            image: _ImageSpec = ...,
+                            name: str = ...,
+                            padding: ... = ...,
+                            state: str = ...,
+                            style: str = ...,
+                            takefocus: _TakeFocusValue = ...,
+                            text: float | str = ...,
+                            textvariable: Variable = ...,
+                            underline: int = ...,
+                            width: int | Literal[''] = ...
         """
-        self.widget_name = widget_name
-        self.parent_widget = parent_widget
-        self.text = text
-        self.style = style
+        self.widget = ttk.Button(parent_widget, **kwargs)
 
-    def create_widget(self) -> ttk.Button:
-        """ボタンウィジェット生成
-
-        Returns:
-            ttk.Button: 生成されたボタンウィジェット
+    def pack(self, **kwargs) -> None:
+        """親ウィジェットに配置する
+            NOTE:tkinterウィジェットのpackメソッドをラップする
         """
-        return ttk.Button(self.parent_widget, text=self.text,
-                          style= self.style, command=self.clicked)
+        self.widget.pack(**kwargs)
 
-    def clicked(self) -> None:
-        """ボタンクリック時の処理実行
+    def grid(self, **kwargs) -> None:
+        """ウィジェットをグリッドレイアウト内に配置する
+            NOTE:tkinterウィジェットのgridメソッドをラップする
         """
-        print(f'[{self.name}] Clicked.')
+        self.widget.grid(**kwargs)
+
+    def place(self, **kwargs) -> None:
+        """親ウィジェットにピクセル単位で配置する
+            NOTE:tkinterウィジェットのplaceメソッドをラップする
+        """
+        self.widget.place(**kwargs)

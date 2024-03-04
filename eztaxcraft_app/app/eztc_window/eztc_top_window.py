@@ -8,79 +8,71 @@ Author: Shimizu
 Date: 2024/2/11
 """
 
-import tkinter as tk
-from tkinter import ttk
+from eztc_base_windows import BaseWindow
+from eztc_window_widget.eztc_widget_button import Button
+from eztc_window_widget.eztc_widget_style import Style
 
-class TopWindow:
+
+class TopWindow(BaseWindow):
     """TOP画面クラス
+
+    Args:
+        BaseWindow (BaseWindow): ベース画面クラス
     """
 
-    def __init__(self, ) -> None:
+    def __init__(self) -> None:
         """コンストラクタ
         """
-        # TOP画面のルートインスタンス生成
-        self.root = tk.Tk()
-        self.font = ("Meiryo", 9)
-        # スタイルを定義
-        self.style = ttk.Style()
-        self.button1_style = 'button1.TButton'
-        self.style.configure(self.button1_style, font=self.font)
+        # 親クラスのコンストラクタ呼び出し
+        super().__init__()
+
+        # # スタイルウィジェットインスタンス生成
+        # self.style_name = '.'
+        # self.style = Style(self.style_name)
+        # # ボタンウィジェットインスタンス生成
+        # login_btn_txt = 'ログイン'
+        # command = self.__clicked_login_btn
+        # self.login_btn = Button(self.root, style='.', text=login_btn_txt, command=command)
 
     def initialize(self) -> None:
         """初期化処理
         """
-        test1_button_text = 'テストボタン1'
-        # 'テストボタン1'というスタイルにフォントを設定
-        button1_instance = Button(test1_button_text, self.root,
-                                  test1_button_text, self.button1_style)
-        button1 = button1_instance.create_widget()
-        button1.pack(side='top')
+        #-------- スタイルウィジェット --------
+        # TOP画面用スタイル生成
+        style_name = '.'
+        style = Style(style_name)
+
+        # TOP画面用スタイルを設定
+        style_font = ('Meiryo', 9)
+        style.config(style_name, font=style_font)
+
+        #-------- ボタンウィジェット --------
+        # ログインボタン生成
+        login_btn_txt = 'ログイン'
+        command = self.__clicked_login_btn
+        login_btn = Button(self.root, text=login_btn_txt, command=command)
+        # ログインボタン配置
+        login_btn.pack()
+
+        #-------- ウィンドウ表示 --------
         self.root.mainloop()
 
-    def __create_button(self, parent_widget, text_str: str, callback) -> ttk.Button:
-        """ボタン生成
-
-        Args:
-            parent_widget (obj): 生成する親ウィジェットオブジェクト
-            text_str (str): ボタンに設定するテキスト文字列
-            callback (obj): ボタン押下時に呼び出されるコールバック関数(メソッド)
-
-        Returns:
-            ttk.Button: ボタンウィジェットオブジェクト
+    def open(self) -> None:
+        """画面を開く
         """
-        return ttk.Button(parent_widget, text=text_str, command=callback)
+        print('[TopWindow: open] Called.')
 
-    def __cb_clicked(self) -> None:
-        """ボタン押下時の処理用コールバック
+    def close(self) -> None:
+        """画面を閉じる
         """
-        print('[TOP Window][Test Button] Clicked.')
+        # 継承先で画面を閉じる処理を実装する
+        print('[TopWindow: close] Called.')
 
-class Button:
-    """ボタンクラス
-        NOTE: ttkパッケージのButtonモジュールを利用する
-    """
-    def __init__(self, name: str, parent_widget, text: str, style: str) -> None:
-        self.name = name
-        # 配置する親ウィジェットオブジェクト
-        self.parent_widget = parent_widget
-        # ボタンウィジェットに設定するテキスト文字列
-        self.text = text
-        # 利用するスタイル
-        self.style = style
-
-    def create_widget(self) -> ttk.Button:
-        """ボタンウィジェット生成
-
-        Returns:
-            ttk.Button: 生成されたボタンウィジェット
+    def __clicked_login_btn(self) -> None:
+        """ログインボタンクリック時の処理実行
         """
-        return ttk.Button(self.parent_widget, text=self.text,
-                          style= self.style, command=self.clicked)
+        print('[TopWindow: __clicked_login_btn] Clicked.')
 
-    def clicked(self) -> None:
-        """ボタンクリック時の処理実行
-        """
-        print(f'[{self.name}] Clicked.')
 
 if __name__ == '__main__':
     top_window = TopWindow()
