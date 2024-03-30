@@ -23,13 +23,21 @@ class BaseWindow(Window):
     Args:
         Window (Window): 継承元の画面クラス
     """
-    def __init__(self) -> None:
+    def __init__(self, width: int = 600, height: int = 400,
+                 pos_x: int = 600, pos_y: int = 300) -> None:
         """コンストラクタ
+
+        Args:
+            width (int, optional): ウィンドウの横幅 [単位:ピクセル]. Defaults to 500.
+            height (int, optional): ウィンドウの高さ [単位:ピクセル]. Defaults to 400.
+            pos_x (int, optional): ウィンドウ表示位置のX座標 [単位:ピクセル]. Defaults to 500.
+            pos_y (int, optional): ウィンドウ表示位置のY座標 [単位:ピクセル]. Defaults to 300.
         """
         # 親クラスのコンストラクタ呼び出し
         super().__init__()
         # ルートTKインスタンス生成
         self.root = tk.Tk()
+        self.root.geometry(f'{width}x{height}+{pos_x}+{pos_y}')
 
     def open(self) -> None:
         """画面を開く

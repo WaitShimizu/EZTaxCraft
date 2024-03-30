@@ -25,16 +25,13 @@ class TopWindow(BaseWindow):
     def __init__(self) -> None:
         """コンストラクタ
         """
-        # 親クラスのコンストラクタ呼び出し
+        ### 親クラスのコンストラクタ呼び出し
+        # NOTE: デフォルトのウィンドウ表示位置で設定
+        #       ウィンドウ横幅: 600px
+        #       ウィンドウ高さ: 400px
+        #       ウィンドウX座標:600px
+        #       ウィンドウY座標:300px
         super().__init__()
-
-        # # スタイルウィジェットインスタンス生成
-        # self.style_name = '.'
-        # self.style = Style(self.style_name)
-        # # ボタンウィジェットインスタンス生成
-        # login_btn_txt = 'ログイン'
-        # command = self.__clicked_login_btn
-        # self.login_btn = Button(self.root, style='.', text=login_btn_txt, command=command)
 
     def initialize(self) -> None:
         """初期化処理
