@@ -45,14 +45,6 @@ class TopWindow(BaseWindow):
         # style_font = ('Meiryo', 9)
         # style.config(style_name, font=style_font)
 
-        # #-------- ボタンウィジェット --------
-        # # ログインボタン生成
-        # login_btn_txt = 'ログイン'
-        # command = self.__clicked_login_btn
-        # login_btn = Button(self.root, text=login_btn_txt, command=command)
-        # # ログインボタン配置
-        # login_btn.pack()
-
         #-------- タブ画面ウィジェット --------
         # タブ画面生成
         notebook_inst = Notebook(self.root)
@@ -70,6 +62,32 @@ class TopWindow(BaseWindow):
         usage_frame = Frame(notebook)
         usage_tab = usage_frame.get_widget()
         notebook_inst.add_tab(usage_tab, "使い方")
+
+        ### -------- ボタンウィジェット --------
+        ## 登録済みユーザータブ用ボタン
+        # NOTE:ログインボタン生成
+        login_btn_txt = 'ログイン'
+        login_btn = Button(registered_user_tab, text=login_btn_txt, command=self.__clicked_login_btn)
+        # ログインボタン配置
+        login_btn.pack()
+
+        ## 未登録ユーザータブ用ボタン
+        # NOTE:ユーザー登録ボタン生成
+        register_btn_txt = 'ユーザー登録'
+        register_btn = Button(unregistered_user_tab, text=register_btn_txt, command=self.__clicked_register_btn)
+        # ユーザー登録ボタンボタン配置
+        register_btn.pack()
+
+        ## 使い方タブ用ボタン
+        # NOTE:ログインボタン生成
+        login_btn = Button(usage_tab, text=login_btn_txt, command=self.__clicked_login_btn)
+        # ログインボタン配置
+        login_btn.pack()
+        # NOTE:ユーザー登録ボタン生成
+        register_btn = Button(usage_tab, text=register_btn_txt, command=self.__clicked_register_btn)
+        # ユーザー登録ボタンボタン配置
+        register_btn.pack()
+
         # タブ画面配置
         notebook_inst.pack(expand=True, fill="both")
 
@@ -91,6 +109,11 @@ class TopWindow(BaseWindow):
         """ログインボタンクリック時の処理実行
         """
         print('[TopWindow: __clicked_login_btn] Clicked.')
+
+    def __clicked_register_btn(self) -> None:
+        """ユーザー登録ボタンクリック時の処理実行
+        """
+        print('[TopWindow: __clicked_register_btn] Clicked.')
 
 
 if __name__ == '__main__':
