@@ -8,12 +8,18 @@ Author: Shimizu
 Date: 2024/1/23
 """
 
+# from dataclasses import dataclass, field
+from controllers.root_controller import RootController
+
 
 def main():
     """メイン関数
+        NOTE:エントリーポイント
     """
-    ## テスト処理追加
-    print("EZTaxCraft")
+    ### ルート制御インスタンス生成
+    controller: RootController = RootController()
+    # 画面制御処理開始
+    controller.start()
 
 
 if __name__ == "__main__":

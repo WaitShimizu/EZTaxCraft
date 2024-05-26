@@ -2,27 +2,20 @@
 # -*- coding: utf-8 -*-
 
 """
-アプリ画面の基底クラス定義
+ルート画面制御処理
 
 Author: Shimizu
-Date: 2024/2/11
+Date: 2024/5/26
 """
 
-import sys
 import tkinter as tk
-from tkinter import ttk
-
-sys.path.append('../../common')
-from window.window import Window
+from controllers.top_controller import TopController
 
 
-class BaseWindow(Window):
-    """ベース画面クラス
-        NOTE: 画面クラスが継承すべき親クラス
-
-    Args:
-        Window (Window): 継承元の画面クラス
+class RootController:
+    """画面制御クラスを制御するクラス
     """
+
     def __init__(self, width: int = 600, height: int = 400,
                  pos_x: int = 600, pos_y: int = 300) -> None:
         """コンストラクタ
@@ -33,19 +26,17 @@ class BaseWindow(Window):
             pos_x (int, optional): ウィンドウ表示位置のX座標 [単位:ピクセル]. Defaults to 500.
             pos_y (int, optional): ウィンドウ表示位置のY座標 [単位:ピクセル]. Defaults to 300.
         """
-        # 親クラスのコンストラクタ呼び出し
-        super().__init__()
-        # ルートTKインスタンス生成
+        ### 画面のルートインスタンスを生成
         self.root = tk.Tk()
+        # NOTE:画面のタイトル文字を削除
+        self.root.title("")
+        # NOTE:画面のジオメトリを設定
         self.root.geometry(f'{width}x{height}+{pos_x}+{pos_y}')
+        ### TOP画面インスタンス生成
+        # NOTE:画面はTOP画面から始まる
+        self.top_controller: TopController = TopController(self.root)
 
-    def open(self) -> None:
-        """画面を開く
+    def start(self) -> None:
+        """画面制御を開始する
         """
-        print('[W]')
-
-    def close(self) -> None:
-        """画面を閉じる
-        """
-        # 継承先で画面を閉じる処理を実装する
-        raise NotImplementedError('次のメソッドが実装されていません。[close]')
+        self.root.mainloop()
