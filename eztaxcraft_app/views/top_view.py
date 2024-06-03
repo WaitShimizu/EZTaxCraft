@@ -12,6 +12,9 @@ import tkinter as tk
 from tkinter import ttk
 from controllers.base_controller import BaseController
 from views.base_view import BaseView
+from views.registered_tab_view import RegisteredTabView
+from views.treatment_tab_view import TreatmentTabView
+from views.unregistered_tab_view import UnregisteredTabView
 
 
 class TopView(BaseView):
@@ -20,6 +23,7 @@ class TopView(BaseView):
     Args:
         BaseView (_type_): ベース画面クラスを継承
     """
+
     def __init__(self, master: tk.Tk, controller: BaseController) -> None:
         """コンストラクタ
 
@@ -35,28 +39,40 @@ class TopView(BaseView):
         """
         ## ノートブックインスタンス NOTE:画面のタブ化
         note_book = ttk.Notebook(self)
-        ## タブ画面用フレームインスタンス
-        # NOTE:登録済みユーザータブ生成
-        self.create_tab(note_book, "登録済みの方")
-
-        # NOTE:未登録ユーザータブ生成
-        self.create_tab(note_book, "未登録の方")
-
-        # NOTE:未登録ユーザータブ生成
-        self.create_tab(note_book, "使い方")
+        #　タブ画面生成
+        self.create_tab(note_book)
 
         # タブ画面配置
         note_book.pack(expand=True, fill="both")
 
-    def create_tab(self, note_book: ttk.Notebook, tab_text: str) -> None:
+    def create_tab(self, note_book: ttk.Notebook) -> None:
         """タブメニューを生成する
 
         Args:
             note_book (ttk.Notebook): ノートブックオブジェクト
-            tab_text (str): タブに設定するテキスト文字列
         """
+        ### スタイルの設定
+        self.style_setup()
+
         ### タブフレーム生成
-        tab_frame = ttk.Frame(note_book)
+        registered_tab = RegisteredTabView(note_book, self.controller)
+        unregistered_tab = UnregisteredTabView(note_book, self.controller)
+        treatment_tab = TreatmentTabView(note_book, self.controller)
+
         ### ノートブックオブジェクトにタブフレームを追加
-        note_book.add(tab_frame, text=tab_text)
+        note_book.add(registered_tab, text="登録済みの方")
+        note_book.add(unregistered_tab, text="未登録の方")
+        note_book.add(treatment_tab, text="使い方")
+
+    def style_setup(self) -> None:
+        """スタイルの設定を行う
+        """
+        ### スタイルの設定
+        style = ttk.Style()
+        style.configure("Flat.TButton", borderwidth=0, relief="flat")
+        style.map('Flat.TButton',
+                  relief=[('active', 'flat'), ('pressed', 'flat')],
+                  background=[('active', 'lightgray'), ('pressed', 'lightgray')],
+                  highlightcolor=[('focus', 'lightgray')],
+                  focuscolor=[('focus', 'lightgray')])
 
