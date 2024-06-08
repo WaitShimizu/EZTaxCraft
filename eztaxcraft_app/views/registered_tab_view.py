@@ -9,6 +9,7 @@ Date: 2024/5/23
 """
 
 import tkinter as tk
+from PIL import ImageTk
 from tkinter import ttk
 from controllers.base_controller import BaseController
 from views.base_view import BaseView
@@ -29,19 +30,34 @@ class RegisteredTabView(BaseView):
             master (tk.Tk): ルート画面オブジェクト
             controller (BaseController): ベース制御クラスを継承した画面制御インスタンス
         """
+        ### ボタン用画像データ取得
+        self.home_logo_img = get_icon("app_logo.png", 210, 60)
+        self.login_leave_img = get_icon("login_leave.png", 150, 45)
+        self.login_enter_img = get_icon("login_enter.png", 150, 45)
         ### 親クラスのコンストラクタ呼び出し
         super().__init__(master, controller)
 
     def create_header(self) -> None:
         """タブ画面のヘッダーを生成する
         """
-        icon = get_icon("logo.png")
-        app_icon_button = ttk.Button(self, text="",
-                                    image=icon,
-                                    compound="left",
-                                    command=self.clicked_cb,
-                                    style="Flat.TButton")
-        app_icon_button.pack()
+        ### ヘッダーのボタンウィジェット生成
+        # ホームボタン
+        home_button = ttk.Button(self, text="",
+                                 image=self.home_logo_img,
+                                 command=self.clicked_cb,
+                                 style="Flat.TButton")
+        home_button.pack(side=tk.LEFT, anchor=tk.N, padx=(15,0), pady=(15,0))
+
+        # ログインボタン
+        login_button = ttk.Button(self, text="",
+                                  image=self.login_leave_img,
+                                  command=self.clicked_cb,
+                                  style="Flat.TButton")
+        login_button.pack(side=tk.RIGHT, anchor=tk.N, padx=(0,20), pady=(20,0))
+
+        # マウスカーソルイベント登録
+        login_button.bind("<Enter>", lambda event: self.cursor_event_cb(event, login_button, self.login_enter_img))
+        login_button.bind("<Leave>", lambda event: self.cursor_event_cb(event, login_button, self.login_leave_img))
 
     def create_widget(self) -> None:
         """ウィジェットを生成する
@@ -49,11 +65,18 @@ class RegisteredTabView(BaseView):
         ## ヘッダー生成
         self.create_header()
 
-        ## ログインボタンインスタンス生成
-        login_button = ttk.Button(self, text="ログイン", command=self.clicked_cb)
-        login_button.pack()
-
     def clicked_cb(self) -> None:
         """ログインボタンクリック処理(コールバック)
         """
-        print("[RegisteredTabView-clicked_login] Clicked.")
+        print("[RegisteredTabView-clicked_cb] Clicked.")
+
+    def cursor_event_cb(self, event, button: ttk.Button, image: ImageTk.PhotoImage) -> None:
+        """カーソルイベント処理(コールバック)
+            NOTE: マウスカーソルがボタン上に入ったときのイベント処理
+
+        Args:
+            event (_type_): イベントデータ
+            button (ttk.Button): ボタンオブジェクト
+            image (ImageTk.PhotoImage): 切り替える画像データ
+        """
+        button.config(image=image)

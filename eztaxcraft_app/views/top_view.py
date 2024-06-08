@@ -67,12 +67,20 @@ class TopView(BaseView):
     def style_setup(self) -> None:
         """スタイルの設定を行う
         """
-        ### スタイルの設定
+        ### スタイルインスタンス生成
         style = ttk.Style()
-        style.configure("Flat.TButton", borderwidth=0, relief="flat")
+        # ホームアイコンスタイル設定
+        self.home_icon_style_config(style)
+
+    def home_icon_style_config(self, style: ttk.Style) -> None:
+        """ホームアイコンのスタイル設定を行う
+
+        Args:
+            style (ttk.Style): スタイルオブジェクト
+        """
+        style.configure("Flat.TButton", padding=[0, 0, 0, 0], borderwidth=0, relief="flat")
         style.map('Flat.TButton',
                   relief=[('active', 'flat'), ('pressed', 'flat')],
                   background=[('active', 'lightgray'), ('pressed', 'lightgray')],
                   highlightcolor=[('focus', 'lightgray')],
                   focuscolor=[('focus', 'lightgray')])
-
