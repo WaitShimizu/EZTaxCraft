@@ -34,4 +34,4 @@ class TopController(BaseController):
     def show_top_view(self) -> None:
         """TOP画面を表示する
         """
-        self.top_view.pack(expand=True, fill="both")
+        self.top_view.pack(expand=True, fill="both", padx=(5,5), pady=(5,5))

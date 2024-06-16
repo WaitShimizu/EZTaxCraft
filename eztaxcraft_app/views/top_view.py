@@ -10,6 +10,7 @@ Date: 2024/5/23
 
 import tkinter as tk
 from tkinter import ttk
+from tkinter.font import Font
 from controllers.base_controller import BaseController
 from views.base_view import BaseView
 from views.registered_tab_view import RegisteredTabView
@@ -55,9 +56,9 @@ class TopView(BaseView):
         self.style_setup()
 
         ### タブフレーム生成
-        registered_tab = RegisteredTabView(note_book, self.controller)
-        unregistered_tab = UnregisteredTabView(note_book, self.controller)
-        treatment_tab = TreatmentTabView(note_book, self.controller)
+        registered_tab = RegisteredTabView(note_book, "TFrame", self.controller)
+        unregistered_tab = UnregisteredTabView(note_book, "TFrame", self.controller)
+        treatment_tab = TreatmentTabView(note_book, "TFrame", self.controller)
 
         ### ノートブックオブジェクトにタブフレームを追加
         note_book.add(registered_tab, text="登録済みの方")
@@ -69,18 +70,54 @@ class TopView(BaseView):
         """
         ### スタイルインスタンス生成
         style = ttk.Style()
-        # ホームアイコンスタイル設定
-        self.home_icon_style_config(style)
+        # タブ画面スタイル設定
+        self.tab_view_style_config(style)
+        # タブ画面ボタンスタイル設定
+        self.tab_view_button_style_config(style)
 
-    def home_icon_style_config(self, style: ttk.Style) -> None:
-        """ホームアイコンのスタイル設定を行う
+    def tab_view_style_config(self, style: ttk.Style) -> None:
+        """タブ画面のスタイル設定を行う
 
         Args:
             style (ttk.Style): スタイルオブジェクト
         """
-        style.configure("Flat.TButton", padding=[0, 0, 0, 0], borderwidth=0, relief="flat")
+        ### タブ画面タイトルバーのスタイルを設定
+        # NOTE: タイトルバーのフォント設定
+        expand_font_size = 3
+        defalut_font = Font(name="TkDefaultFont", exists=True)
+        title_bar_font = defalut_font.copy()
+        title_bar_font.config(size=defalut_font.cget("size") + expand_font_size, weight="bold")
+        style.configure("TNotebook.Tab",
+                        padding=(5, 5),
+                        width=10,
+                        anchor="center",
+                        font=title_bar_font,
+                        borderwidth=1,
+                        borderstyle="solid")
+
+        style.map('TNotebook.Tab',
+                  background=[("selected", "white"), ("!selected", "#7F7F7F")],
+                  foreground=[("selected", "#4472C4"), ("!selected", "white")])
+
+        ### タブ画面のスタイルを設定
+        style.configure("TFrame", background="white")
+
+    def tab_view_button_style_config(self, style: ttk.Style) -> None:
+        """タブ画面のボタンスタイル設定を行う
+
+        Args:
+            style (ttk.Style): スタイルオブジェクト
+        """
+        # タブ画面のボタンのスタイルを設定
+        style.configure("Flat.TButton",
+                        padding=[0, 0, 0, 0],
+                        borderwidth=0,
+                        relief="flat",
+                        background="white")
+
+        # ボタンオブジェクトへのカーソルイベント発生時のスタイル設定
         style.map('Flat.TButton',
                   relief=[('active', 'flat'), ('pressed', 'flat')],
-                  background=[('active', 'lightgray'), ('pressed', 'lightgray')],
-                  highlightcolor=[('focus', 'lightgray')],
-                  focuscolor=[('focus', 'lightgray')])
+                  background=[('active', 'white'), ('pressed', 'white')],
+                  highlightcolor=[('focus', 'white')],
+                  focuscolor=[('focus', 'white')])
