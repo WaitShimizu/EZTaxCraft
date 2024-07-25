@@ -34,26 +34,37 @@ class RegisteredTabView(BaseTabView):
         self.home_logo_img = get_icon("app_logo.png", 210, 45)
         self.login_leave_img = get_icon("login_leave.png", 150, 45)
         self.login_enter_img = get_icon("login_enter.png", 150, 45)
+        ### メニュー生成
+        self.menu_title_list = [
+            "帳簿を付ける",
+            "帳簿を確認する",
+            "帳簿を出力する",
+            "申告書を作成する"
+        ]
         ### 親クラスのコンストラクタ呼び出し
         super().__init__(master, style, controller)
 
     def create_body_header(self) -> None:
         """タブ画面のボディヘッダーを生成する
         """
+        ### ボディヘッダー用フレーム生成
+        body_header_frame = ttk.Frame(self)
         ### ヘッダーのボタンウィジェット生成
         # ホームボタン
-        home_button = ttk.Button(self, text="",
+        home_button = ttk.Button(body_header_frame, text="",
                                  image=self.home_logo_img,
                                  command=self.clicked_cb,
                                  style="Flat.TButton")
         home_button.pack(side=tk.LEFT, anchor=tk.N, padx=(15,0), pady=(15,0))
 
         # ログインボタン
-        login_button = ttk.Button(self, text="",
+        login_button = ttk.Button(body_header_frame, text="",
                                   image=self.login_leave_img,
                                   command=self.clicked_cb,
                                   style="Flat.TButton")
+        # ウィジェットを配置
         login_button.pack(side=tk.RIGHT, anchor=tk.N, padx=(0,20), pady=(20,0))
+        body_header_frame.pack(padx=(0,0), pady=(0,15), fill="both")
 
         # マウスカーソルイベント登録
         login_button.bind("<Enter>", lambda event: self.cursor_event_cb(event, login_button, self.login_enter_img))
@@ -64,6 +75,8 @@ class RegisteredTabView(BaseTabView):
         """
         ## ヘッダー生成
         self.create_body_header()
+        ## メニュー生成
+        self.create_menu(self.menu_title_list)
 
     def clicked_cb(self) -> None:
         """ログインボタンクリック処理(コールバック)
