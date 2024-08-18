@@ -8,8 +8,7 @@ Author: Shimizu
 Date: 2024/1/23
 """
 
-# from dataclasses import dataclass, field
-from controllers.root_controller import RootController
+from controllers.main_controller import MainController
 
 
 def main():
@@ -17,9 +16,9 @@ def main():
         NOTE:エントリーポイント
     """
     ### ルート制御インスタンス生成
-    controller: RootController = RootController()
+    controller = MainController()
     # 画面制御処理開始
-    controller.start()
+    controller.run()
 
 
 if __name__ == "__main__":

@@ -19,24 +19,41 @@ class BaseView(ttk.Frame):
         NOTE:全画面クラスが継承すべき基底クラス
     """
 
-    def __init__(self, master: tk.Tk, controller: BaseController) -> None:
+    def __init__(self, controller: BaseController) -> None:
         """コンストラクタ
 
         Args:
             master (tk.Tk): ルート画面オブジェクト
             controller (BaseController): ベース制御クラスを継承した画面制御インスタンス
         """
-        ### 画面の最上位オブジェクト(root[master])を格納
-        self.root = master
+        ### 画面のルートインスタンスを生成
+        self.root = tk.Tk()
+        ### コントロールオブジェクト格納
+        self.controller = controller
+        ### 画面のタイトル情報、サイズ情報を取得
+        title, _ = self.controller.get_window_title()
+        width, _ = self.controller.get_window_width()
+        height, _ = self.controller.get_window_height()
+        pos_x, _ = self.controller.get_window_position_x()
+        pos_y, _ = self.controller.get_window_position_y()
+        # NOTE:画面のタイトル文字を削除
+        self.root.title(title)
+        # NOTE:画面のジオメトリを設定
+        self.root.geometry(f'{width}x{height}+{pos_x}+{pos_y}')
         ### 親クラスのコンストラクタ呼び出し
         super().__init__(self.root)
-        ### 画面制御インスタンスを格納
-        self.controller = controller
         ### ウィジェットを生成
         self.create_widget()
         ### 画面のリサイズイベント処理のコールバックを格納
         self.resize_event_cb_list: list = []
         self.event_bind()
+
+    @abstractmethod
+    def run(self) -> None:
+        """画面処理を開始する
+        """
+        # NOTE:派生先のクラスで本メソッドをオーバーライドして必ず実装する
+        raise NotImplementedError()
 
     @abstractmethod
     def create_widget(self) -> None:

@@ -8,10 +8,10 @@ Author: Shimizu
 Date: 2024/5/23
 """
 
+import json
+import os
 from PIL import Image, ImageTk
 
-### GCによるデータ削除回避のためグローバルに定義
-images: dict = {}
 
 def get_icon(file_name: str, width: int = 100, height: int = 50) -> ImageTk.PhotoImage:
     """アイコン画像を取得する
@@ -25,25 +25,36 @@ def get_icon(file_name: str, width: int = 100, height: int = 50) -> ImageTk.Phot
     Returns:
         ImageTk.PhotoImage: 画像データ
     """
-    ### バッファチェック
-    # NOTE:既にファイル名の画像データをバッファに保持している場合はそれを応答する
-    # if file_name in images:
-    #     data = images[file_name]
-    #     # バッファの画像データサイズチェック
-    #     if data["width"] == width and data["height"] == height:
-    #         return images[file_name]
-
     ### 画像データを取得してバッファに格納する
     file_path = f"data/icon/{file_name}"
     image = Image.open(file_path)
     resized_image = image.resize((width, height))
     logo_image = ImageTk.PhotoImage(resized_image)
-    # # NOTE:バッファに格納するデータを生成
-    # save_image = {
-    #     "image_data": logo_image,
-    #     "width": width,
-    #     "height": height
-    # }
-    # images[f"{file_name}"] = save_image
-    # return images[f"{file_name}"]["image_data"]
     return logo_image
+
+def load_json(file_path: str) -> dict:
+    """Jsonデータ取得
+        NOTE:Jsonファイルを読み込んで辞書型データを応答する
+
+    Args:
+        file_path (str): 読み込み対象のJsonファイルパス
+
+    Returns:
+        dict: 読み込みデータ
+    """
+    ### 読み込み設定
+    MODE = 'r'
+    ENCODING = 'utf-8'
+
+    ### ファイルの存在チェック
+    if not os.path.exists(file_path):
+        # NOTE: ファイルが存在しない場合：空データを応答
+        return {}
+
+    try:
+        with open(file_path, MODE, encoding=ENCODING) as file:
+            # 結果応答
+            return json.load(file)
+    except json.JSONDecodeError:
+        # NOTE: JSONデータのでコード失敗
+        return {}

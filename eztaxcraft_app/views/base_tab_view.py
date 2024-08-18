@@ -141,4 +141,4 @@ class BaseTabView(ttk.Frame):
     def resize_event_cb(self) -> None:
         """画面のリサイズイベント処理(コールバック)
         """
-        new
+        pass
