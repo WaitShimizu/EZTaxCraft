@@ -30,12 +30,8 @@ class BaseView(ttk.Frame):
         self.root = tk.Tk()
         ### コントロールオブジェクト格納
         self.controller = controller
-        ### 画面のタイトル情報、サイズ情報を取得
-        title, _ = self.controller.get_window_title()
-        width, _ = self.controller.get_window_width()
-        height, _ = self.controller.get_window_height()
-        pos_x, _ = self.controller.get_window_position_x()
-        pos_y, _ = self.controller.get_window_position_y()
+        ### 画面情報を取得
+        width, height, pos_x, pos_y, title = self.controller.get_window_settings()
         # NOTE:画面のタイトル文字を削除
         self.root.title(title)
         # NOTE:画面のジオメトリを設定
@@ -70,6 +66,7 @@ class BaseView(ttk.Frame):
     def resize_event(self, event) -> None:
         """画面のリサイズイベント処理
         """
+        print(f"[resize_event] resized")
         ### バッファに格納されたコールバック実行
         for func in self.resize_event_cb_list:
             func()

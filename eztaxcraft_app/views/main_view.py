@@ -10,7 +10,6 @@ Date: 2024/5/23
 
 import tkinter as tk
 from tkinter import ttk
-from tkinter.font import Font
 from controllers.base_controller import BaseController
 from views.base_view import BaseView
 from views.registered_tab_view import RegisteredTabView

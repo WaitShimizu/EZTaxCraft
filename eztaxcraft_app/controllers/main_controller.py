@@ -11,7 +11,7 @@ Date: 2024/5/23
 import tkinter as tk
 from controllers.base_controller import BaseController
 from views.main_view import MainView
-from models.settings_model import (DefaultSettingsModel, CustomSettingsModel)
+from models.settings_model import SettingsModel
 from models.error_model import (ErrorCode, ErrorModel)
 
 
@@ -27,8 +27,7 @@ class MainController(BaseController):
         ### モデルインスタンス生成
         # TODO:モデルクラスを実装後に着手
         self.error_model = ErrorModel(ErrorCode.SUCCESS, "")
-        self.custom_settings_model = CustomSettingsModel("custom.json")
-        self.default_settings_model = DefaultSettingsModel()
+        self.settings_model = SettingsModel("custom.json")
         ### トップ画面インスタンス生成
         self.main_view: MainView = MainView(self)
 
@@ -37,100 +36,18 @@ class MainController(BaseController):
         """
         self.main_view.run()
 
-    def get_window_width(self) -> tuple[int, ErrorCode]:
-        """画面の幅情報を取得する
+    def get_window_settings(self) -> tuple[int, int, int, int, str]:
+        """画面の設定情報を取得する
 
         Returns:
-            int: 画面の幅情報, エラーコード
+            tuple[int, int, int, int, str]: 画面の幅, 高さ, x座標, y座標, タイトル情報
         """
-        ### カスタム設定チェック
-        if self.custom_settings_model.check_exist_data() != ErrorCode.SUCCESS:
-            # NOTE: カスタム情報が存在しなければデフォルト値を応答
-            return self.default_settings_model.get_window_width()
+        return self.settings_model.get_window_settings()
 
-        # NOTE: カスタム情報があればカスタム値を応答
-        return self.custom_settings_model.get_window_width()
-
-    def get_window_height(self) -> tuple[int, ErrorCode]:
-        """画面の高さ情報を取得する
+    def get_font_settings(self) -> tuple[str, str]:
+        """画面の設定情報を取得する
 
         Returns:
-            int: 画面の高さ情報, エラーコード
+            tuple[str, str]: フォント, フォントサイズ
         """
-        ### カスタム設定チェック
-        if self.custom_settings_model.check_exist_data() != ErrorCode.SUCCESS:
-            # NOTE: カスタム情報が存在しなければデフォルト値を応答
-            return self.default_settings_model.get_window_height()
-
-        # NOTE: カスタム情報があればカスタム値を応答
-        return self.custom_settings_model.get_window_height()
-
-    def get_window_position_x(self) -> tuple[int, ErrorCode]:
-        """画面の位置座標(x座標)を取得する
-
-        Returns:
-            int: 画面の位置座標(x座標), エラーコード
-        """
-        ### カスタム設定チェック
-        if self.custom_settings_model.check_exist_data() != ErrorCode.SUCCESS:
-            # NOTE: カスタム情報が存在しなければデフォルト値を応答
-            return self.default_settings_model.get_window_position_x()
-
-        # NOTE: カスタム情報があればカスタム値を応答
-        return self.custom_settings_model.get_window_position_x()
-
-    def get_window_position_y(self) -> tuple[int, ErrorCode]:
-        """画面の位置座標(y座標)を取得する
-
-        Returns:
-            int: 画面の位置座標(y座標), エラーコード
-        """
-        ### カスタム設定チェック
-        if self.custom_settings_model.check_exist_data() != ErrorCode.SUCCESS:
-            # NOTE: カスタム情報が存在しなければデフォルト値を応答
-            return self.default_settings_model.get_window_position_y()
-
-        # NOTE: カスタム情報があればカスタム値を応答
-        return self.custom_settings_model.get_window_position_y()
-
-    def get_window_title(self) -> tuple[str, ErrorCode]:
-        """画面のタイトル情報を取得する
-
-        Returns:
-            tuple[str, ErrorCode]: 画面のタイトル情報, エラーコード
-        """
-        ### カスタム設定チェック
-        if self.custom_settings_model.check_exist_data() != ErrorCode.SUCCESS:
-            # NOTE: カスタム情報が存在しなければデフォルト値を応答
-            return self.default_settings_model.get_window_title()
-
-        # NOTE: カスタム情報があればカスタム値を応答
-        return self.custom_settings_model.get_window_title()
-
-    def get_font_family(self) -> tuple[str, ErrorCode]:
-        """フォント情報を取得する
-
-        Returns:
-            tuple[str, ErrorCode]: フォント情報, エラーコード
-        """
-        ### カスタム設定チェック
-        if self.custom_settings_model.check_exist_data() != ErrorCode.SUCCESS:
-            # NOTE: カスタム情報が存在しなければデフォルト値を応答
-            return self.default_settings_model.get_font_family()
-
-        # NOTE: カスタム情報があればカスタム値を応答
-        return self.custom_settings_model.get_font_family()
-
-    def get_font_size(self) -> tuple[str, ErrorCode]:
-        """フォントサイズを取得する
-
-        Returns:
-            tuple[str, ErrorCode]: フォントサイズ, エラーコード
-        """
-        ### カスタム設定チェック
-        if self.custom_settings_model.check_exist_data() != ErrorCode.SUCCESS:
-            # NOTE: カスタム情報が存在しなければデフォルト値を応答
-            return self.default_settings_model.get_font_size()
-
-        # NOTE: カスタム情報があればカスタム値を応答
-        return self.custom_settings_model.get_font_size()
+        return self.settings_model.get_font_settings()
